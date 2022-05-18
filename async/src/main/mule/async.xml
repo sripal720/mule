@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e98c3a5b-1d4e-4641-aa01-b3e1475c4563" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="asyncFlow" doc:id="2e13c40f-dc51-486c-bd86-9c2fef16e8a6" >
+		<http:listener doc:name="Listener" doc:id="47dcfc11-be9b-4525-85fa-9f2c7bfc12d1" config-ref="HTTP_Listener_config" path="Async"/>
+		<logger level="INFO" doc:name="Logger" doc:id="dd0b44dd-18a5-4a3e-8e47-d7fb3ef741fb" message="alphabet"/>
+		<async doc:name="Async" doc:id="9684c9d2-14c8-4d44-83f4-42da33d1d162" >
+			<logger level="INFO" doc:name="Logger" doc:id="338fcc26-7b54-4a5c-9a8b-d22756fb48bf" message="A"/>
+			<logger level="INFO" doc:name="Logger" doc:id="24662ffe-0229-4b28-a8b5-bf10ff1c98e5" message="B"/>
+			<logger level="INFO" doc:name="Logger" doc:id="7ca11ba4-23fc-460a-a740-dd85e230d6b2" message="C"/>
+		</async>
+		<flow-ref doc:name="Flow Reference" doc:id="3bf7a930-e746-4382-b6cb-a82041cd5e32" name="asyncSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="6d57b545-4186-4b11-b407-a746dbecb64c" message="E"/>
+	</flow>
+	<sub-flow name="asyncSub_Flow" doc:id="30594de8-a01b-4008-b071-9acbd0a40a72" >
+		<logger level="INFO" doc:name="Logger" doc:id="659d48f6-6eb7-43a0-9a66-69278864ac05" message="D"/>
+	</sub-flow>
+</mule>
